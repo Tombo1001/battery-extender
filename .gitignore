@@ -1,0 +1,49 @@
+# ── Claude Code ───────────────────────────────────────────────────────────────
+.claude/
+CLAUDE.md
+memory/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.Python
+pip-wheel-metadata/
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+env/
+venv/
+.venv/
+ENV/
+
+# ── Secrets / local config ────────────────────────────────────────────────────
+.env
+.env.*
+*.key
+*.pem
+secrets.*
+
+# ── Personal battery reports ──────────────────────────────────────────────────
+# battery-report.html is intentionally tracked (it is the anonymised example).
+# If you generate your own report, save it under a different name or add it here.
+battery-report-mine.html
+battery-report-personal.html
+
+# ── IDE / editor ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*~
+
+# ── OS artefacts ──────────────────────────────────────────────────────────────
+Thumbs.db
+Desktop.ini
+.DS_Store

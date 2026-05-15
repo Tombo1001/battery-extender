@@ -1,0 +1,56 @@
+name: Security Audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Every Monday at 08:00 UTC — catches CVEs published since last push
+    - cron: '0 8 * * 1'
+
+permissions:
+  contents: read   # Least-privilege: only needs to read the repo
+
+jobs:
+  # ── Job 1: CVE audit of all pinned packages ──────────────────────────────────
+  pip-audit:
+    name: Dependency CVE Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+
+      - name: Install pip-audit
+        # Pin pip-audit itself so CI is also reproducible
+        run: pip install pip-audit==2.9.0
+
+      - name: Audit pinned dependencies
+        # --progress-spinner off keeps CI logs clean
+        # --strict fails the job on any finding (not just high severity)
+        run: pip-audit -r requirements.txt --progress-spinner off --strict
+
+  # ── Job 2: Python syntax check ────────────────────────────────────────────────
+  syntax:
+    name: Syntax Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Compile check
+        # py_compile checks AST without executing — safe on Linux even though
+        # the script uses Windows-only APIs at runtime
+        run: python -m py_compile battery_tui.py && echo "Syntax OK"

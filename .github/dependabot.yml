@@ -1,0 +1,29 @@
+version: 2
+
+updates:
+  # Watch pip dependencies — opens a PR when any pinned package has a newer version
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Europe/London
+    # Keep PRs small — one dependency per PR
+    groups:
+      all-deps:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "chore(deps)"
+
+  # Watch GitHub Actions themselves for version updates
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Europe/London
+    commit-message:
+      prefix: "ci(deps)"
