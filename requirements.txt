@@ -1,7 +1,7 @@
 # Direct dependencies — pinned for supply chain security.
 # To update: pip install --upgrade textual psutil && pip freeze > requirements.txt
 # Then audit: pip install pip-audit && pip-audit -r requirements.txt
-textual==8.2.6
+textual==8.2.7
 psutil==7.2.2
 
 # Transitive dependencies (pinned to lock the full graph)
